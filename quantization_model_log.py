@@ -1,3 +1,8 @@
+"""Quantized observation model and helpers in the log domain.
+
+Implements binning after additive Gaussian noise, probit likelihood for bin
+indices, outer-product tensor assembly used in the forward model, and log-NMSE.
+"""
 import torch
 import numpy as np
 

@@ -1,3 +1,4 @@
+"""GAN training utilities: MAT dataset loader and 14x34 patch Generator/Discriminator."""
 import os
 import torch
 import torch.nn as nn
@@ -5,12 +6,14 @@ import scipy.io as sio
 from torch.utils.data import Dataset
 
 class SLFDataset(Dataset):
-    """SLF loader"""
+    """Loads ``*.mat`` files from ``root_dir``; expects variable ``Sc`` (SLF tensor)."""
 
     def __init__(self, root_dir, total_data, device):
         """
         Args:
-            total_data: Number of data points
+            root_dir: Directory of zero-padded ``000001.mat``, … files.
+            total_data: Number of examples (files) to iterate.
+            device: Tensor device for loaded samples.
         """
         self.root_dir = root_dir
         self.num_examples = total_data

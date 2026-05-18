@@ -1,10 +1,11 @@
+"""Objective: negative log-likelihood of quantized observations plus Frobenius priors."""
 import torch
 from quantization_model_log import prob_probit
 
 
-class CostFunction():
+class CostFunction:
     
-    def __init__(self, sample_matrix, reg, method, bins, std_val, device, use_reg = True):
+    def __init__(self, sample_matrix, reg, method, bins, std_val, device, use_reg=True):
         
         self.method = method
         self.use_reg = use_reg
@@ -21,7 +22,7 @@ class CostFunction():
         
         
     def calculate_cost(self, Y, T_hat, C, Z):
-        #Negative log-likelihood
+        """Sum -log p(Y | T_hat) over observed entries, plus optional BTD/DGM penalties."""
         cost_specific = - torch.sum(self.Wx * torch.log(prob_probit(Y, T_hat, self.bin_boundaries, self.std_probit)))
         #Regularizations
         if self.use_reg:

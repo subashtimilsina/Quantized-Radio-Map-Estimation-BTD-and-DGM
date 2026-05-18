@@ -1,3 +1,8 @@
+"""Data I/O and pretrained GAN loading for the radio-map estimation demo.
+
+``load_data`` ingests MATLAB ``.mat`` exports; ``load_generator`` restores
+``Generator256`` weights from a training checkpoint dict.
+"""
 import matplotlib.pyplot as plt
 import torch
 import numpy as np

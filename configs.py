@@ -1,9 +1,14 @@
+"""Experiment configuration for quantized radio map estimation.
+
+Defines sampling masks, log-domain quantization bin edges, learning rates,
+and probit noise scale used by the demo notebook and optimization scripts.
+"""
 import torch
 import numpy as np
 
 
 def create_mask_matrix(f, fiber, H=51, W=51, K=64):
-    #Create mask for sampling measurements
+    """Bernoulli mask over grid (and optionally identical across frequency slices)."""
     # sampling frequency (fraction of measurements )
     # Mask
 
@@ -17,8 +22,9 @@ def create_mask_matrix(f, fiber, H=51, W=51, K=64):
 
     return Om
 
-class SelectParameters():
-    
+class SelectParameters:
+    """Hyperparameters and quantization boundaries for a fixed quantizer setup."""
+
     def __init__(self, bits):
         self.bits = bits
         

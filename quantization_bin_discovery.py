@@ -1,7 +1,13 @@
+"""Utilities to summarize empirical quantiles of log-magnitude SLF samples.
+
+Used to analyze bin boundaries across many ``.pt`` snapshot files; optional
+CSV aggregation with :func:`find_quantization_bins`.
+"""
 import csv
 import torch
 import pandas as pd
 from glob import glob
+
 
 def write_quantiles_tocsv(csv_name):
 

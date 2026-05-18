@@ -1,3 +1,8 @@
+"""Train a DCGAN-style generator/discriminator on MAT snapshots of SLFs.
+
+Expects ``Data_generation/Real_data_train/slf_mat/*.mat`` with variable ``Sc``.
+Saves checkpoints under ``Models/GAN/`` and TensorBoard logs under ``logs/``.
+"""
 import torch
 import torch.nn as nn
 import numpy as np
@@ -10,7 +15,8 @@ from datetime import datetime
 from torch.utils.tensorboard import SummaryWriter
 import torchvision.utils as vutils
 
-device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+ngpu = torch.cuda.device_count()
 now = datetime.now().strftime("%y_%m_%d__%H_%M_%S")
 writer = SummaryWriter("logs/"+now)
 
@@ -133,11 +139,11 @@ if __name__ == "__main__":
     print(f"len dataset: {len(train_set_slf)}, len dataloader: {len(dataloader)}")
     # Create the generator
     netG = Generator().to(device)
-    if (device == 'cuda') and (ngpu > 1):
+    if device.type == "cuda" and ngpu > 1:
         netG = nn.DataParallel(netG, list(range(ngpu)))
 
     netD = Discriminator().to(device)
-    if (device == 'cuda') and (ngpu > 1):
+    if device.type == "cuda" and ngpu > 1:
         netD = nn.DataParallel(netD, list(range(ngpu)))
 
     netD.weight_init(mean=1.0, std=0.02)

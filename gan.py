@@ -1,5 +1,10 @@
+"""Generator and discriminator for 51x51 SLF maps (inference / demo architecture).
+
+For training on 14x34 patches, see :mod:`train_utils` instead.
+"""
 import torch
 import torch.nn as nn
+
 
 class Flatten(nn.Module):
     def forward(self, input):

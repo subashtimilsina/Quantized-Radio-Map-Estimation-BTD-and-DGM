@@ -1,6 +1,8 @@
+"""Elementwise log transform and inverse used before quantization (see paper)."""
 import torch
-    
-class TransformLog():
+
+
+class TransformLog:
     
     def __init__(self, offset, scale=1.0):
         self.offset = offset
